@@ -6,12 +6,12 @@ Clone this repository somewhere on your computer and install necessary libraries
 
 Run the command as follows:
 
-`python main.py <filename> <iterations> <time_step> <K> <g_func>`
+`python main.py <filename> <iterations> <time_step> <K> <g_func> --options`
 
 ### Parameters
 - `filename`: Path to the image file you want to run the algorithm on.
 - `iterations`: Number of iterations to run the algorithm for.
-- `time_step`: Time step size for the algorithm. The algorithm is stable if this is in the range **(0, 0.25)**.
+- `time_step`: Time step size for the algorithm. The algorithm is stable if this is in the range **(0, 0.25]**.
 - `K`: The constant K to be used in the function g. K effectively defines what an ‘edge’ is in the detector. If the gradients of neighboring pixels are large, then it scales down the differences. Increasing K reduces the amount of scaling that the function g does. This may cause the image to become blurry with enough iterations.
 - `g_func`: The function g to use in the algorithm. These choices of the function g were mentioned in the paper, so this implementation decided to stick with them. Technically, any monotonically decreasing function can be used. Below are the equations for the g functions. $G$ is the magnitude of the image gradient.
   - `g_0`: $e^{-(\frac{G}{K})^2}$

@@ -23,6 +23,8 @@ parser.add_argument("g_func", type=int, choices=[0, 1], default=0,
                     help="Choice of g function for algorithm. See README for what these are. Choose 0 or 1")
 parser.add_argument("--animate", action="store_true",
                     help="Display progress of algorithm as it runs")
+parser.add_argument("--time", action="store_true",
+                    help="Show runtime of algorithm loop")
 parsed = parser.parse_args()
 
 # Main body of the script
@@ -73,20 +75,19 @@ def main(args):
     # Prepare for the loop
     N = args.iterations
     pool = Pool(processes=U.shape[2]) # One process per channel
-    start = time() # Tracking runtime
+    U = np.moveaxis(U, 2, 0) # Index as [colour, width, height] for the processing pool
+    print(U.shape)
+    if args.time:
+        start = time() # Tracking runtime
 
     # Begin the loop
     for n in range(N):
         # The Perona-Malik algorithm is called here, it should run in parallel via the Pool object
-        U = np.moveaxis( # The pool returns the image indexed differently [colour, width, height], so swap it back to [height, width, colour]
-                np.array( # The pool returns a list of 2D arrays, make it one 3D array
-                    pool.starmap(pm.perona_malik, [
-                            (U[:, :, c], g, args.time_step, args.K, w, h) for c in range(img.shape[2]) # Apply the algorithm to each colour channel with the starmap
-                        ]
-                    )
-                ),
-                0,
-                2
+        U = np.array( # The pool returns a list of 2D arrays, make it one 3D array
+                pool.starmap(pm.perona_malik, [
+                        (U[c, :, :], g, args.time_step, args.K, w, h) for c in range(U.shape[0]) # Apply the algorithm to each colour channel with the starmap
+                    ]
+                )
             )
 
         # Progress bar
@@ -97,18 +98,20 @@ def main(args):
 
         # Update image if animation is requested
         if args.animate:
-            cv2.imshow("Processed Image", U[1:h+1, 1:w+1, :])
+            cv2.imshow("Processed Image", np.moveaxis(U[:, 1:h+1, 1:w+1], 0, 2))
             cv2.waitKey(1)
 
     # End of loop
-    print(f"\nFinished! Total runtime: {time() - start:.3f} seconds")
+    if args.time:
+        print(f"\nFinished! Total runtime: {time() - start:.3f} seconds")
+    else:
+        print("\nFinished!")
 
     # Display the image after iterations
     cv2.namedWindow("Processed Image", cv2.WINDOW_NORMAL)
     cv2.moveWindow("Processed Image", 920, 10)
     cv2.resizeWindow("Processed Image", 900, 900)
-    cv2.imshow("Processed Image", U[1:h+1, 1:w+1, :])
-
+    cv2.imshow("Processed Image", np.moveaxis(U[:, 1:h+1, 1:w+1], 0, 2))
     print("\n========================\n"
           "Press any key to finish!\n"
           "========================\n")

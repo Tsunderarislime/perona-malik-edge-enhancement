@@ -19,6 +19,7 @@ Run the command as follows:
 
 ### Optional Flags
 - `--animate`: Add this flag to display the image after each iteration in a window. Note that this may negatively affect performance, as it will draw the image every iteration.
+- `--time`: Add this flag to display the runtime of the algorithm.
 
 ## Citation
 P. Perona and J. Malik, "Scale-space and edge detection using anisotropic diffusion," in IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 12, no. 7, pp. 629-639, July 1990, doi: 10.1109/34.56205.

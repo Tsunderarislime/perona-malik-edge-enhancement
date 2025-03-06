@@ -76,7 +76,6 @@ def main(args):
     N = args.iterations
     pool = Pool(processes=U.shape[2]) # One process per channel
     U = np.moveaxis(U, 2, 0) # Index as [colour, width, height] for the processing pool
-    print(U.shape)
     if args.time:
         start = time() # Tracking runtime
 

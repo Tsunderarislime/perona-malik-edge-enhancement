@@ -18,9 +18,8 @@ Run the command as follows:
   - `g_1`: $\frac{1}{1 + (\frac{G}{K})^2}$
 
 ### Optional Flags
-- `--animate`: Add this flag to display the image after each iteration in a window. Note that this will affect performance, as it will have to draw the image every iteration.
+- `--animate`: Add this flag to display the image after each iteration in a window. Note that this may negatively affect performance, as it will draw the image every iteration.
 
 ## Citation
 P. Perona and J. Malik, "Scale-space and edge detection using anisotropic diffusion," in IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 12, no. 7, pp. 629-639, July 1990, doi: 10.1109/34.56205.
 keywords: {Image edge detection;Anisotropic magnetoresistance;Smoothing methods;Diffusion processes;Detectors;Hardware},
-

@@ -58,7 +58,7 @@ def main(args):
         cv2.namedWindow("Processed Image", cv2.WINDOW_NORMAL)
         cv2.moveWindow("Processed Image", 920, 10)
         cv2.resizeWindow("Processed Image", 900, 900)
-        cv2.imshow("Processed Image", U)
+        cv2.imshow("Processed Image", U[1:h+1, 1:w+1, :])
     
     # Wait until user has moved windows to where they want before starting
     print("\n=======================\n"

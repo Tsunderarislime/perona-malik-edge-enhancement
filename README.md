@@ -35,19 +35,19 @@ Now here are three different outputs.
   <img src="https://github.com/user-attachments/assets/f4d0454b-339f-482e-9182-6978b3dab614"> <img src="https://github.com/user-attachments/assets/d7ca9fcc-3801-4588-9aa0-5fb037baa7a8"> <img src="https://github.com/user-attachments/assets/b11f6158-3435-44fc-9816-5e01f7046c16">
 </p>
 
-- Left (A normal set of parameters):
+- Normal edge-enhancement:
   - N = 250
   - Time-step Size = 0.05
   - K = 0.15
   - g = 0
-- Center (Unstable time-step size):
+- The cursed fruit loops:
   - N = 250
-  - Time-step Size = 1.5 `<-- unstable because this is not in the range (0, 0.25]` 
+  - **Time-step Size = 1.5** `<-- algorithm is unstable because this is not in the range (0, 0.25]` 
   - K = 0.15
   - g = 0
-- Right (Stable, but very blurry):
+- Motion blur be like:
   - N = 250
-  - Time-step Size = 0.05
+  - **Time-step Size = 0.05**
   - K = 1 `<-- high values of K cause blurring to occur`
   - g = 0
 
